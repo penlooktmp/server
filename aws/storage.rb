@@ -5,12 +5,12 @@
 
 require './aws/config'
 
-class AwsEC2
+class AwsS3
 
 	def initialize
 		config = AwsConfig.new
 		@aws = config.get('aws.yml')['access_key']
-		@ec2 = AWS::EC2.new(
+		@s3 = AWS::S3.new(
 			region: 'us-west-2',
 			access_key_id: @aws['key_id'],
   			secret_access_key: @aws['key_secret']
@@ -24,10 +24,5 @@ class AwsEC2
 			end
 		}
 	end
-
-	def create
-	end
-
-	def get
 
 end

@@ -2,6 +2,7 @@
 # Use of this source code is governed by
 # license that can be found in the LICENSE file.
 # Author : Loi Nguyen <loint@penlook.com>
+
 source 'https://rubygems.org'
 gem 'nokogiri'
 gem 'rack', '~>1.1'
