@@ -7,9 +7,33 @@
 require 'aws-sdk-v1'
 require './aws/instance'
 
+args = Array.new
 ARGV.each do|a|
-  puts "Argument: #{a}"
+	args.push(a)
 end
 
-ec2 = AwsEC2.new
-ec2.list()
+def help
+	puts "Usage: penlook server <option> <parameter>"
+   	puts "Options:"
+    puts "   instance  Server authentication"
+    puts "   storage   Initialize project"
+end
+
+modules = Hash[
+	"instance" => "AwsEC2",
+	"storage"  => "AwsS3"
+]
+
+if args[0]
+	if File.exist?("./aws/#{args[0]}.rb")
+		obj = eval(modules[args[0]] + ".new")
+		obj.cmd(args.slice(1, args.length()))
+	else
+		help
+	end
+else
+	help
+end
+
+#ec2 = AwsEC2.new
+#ec2.list()

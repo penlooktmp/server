@@ -17,4 +17,8 @@ class AwsConfig
 		return JSON.parse(config)
 	end
 
+	def cmd
+		help
+	end
+
 end

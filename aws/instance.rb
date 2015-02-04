@@ -7,6 +7,7 @@ require './aws/config'
 
 class AwsEC2
 
+	# Amazon EC2 Initialize
 	def initialize
 		config = AwsConfig.new
 		@aws = config.get('aws.yml')['access_key']
@@ -17,17 +18,53 @@ class AwsEC2
 		)
 	end
 
+	# Command-line Interface
+	def cmd(args)
+		print args
+	end
+
+	# List all instances
+	#
+	# $penlook server list
 	def list
+		print "----------------- LIST INSTANCES -----------------\n"
 		@ec2.instances.inject({}) { |m, instance|
 			if instance.status then
-				print instance.id + ' -- ' + instance.instance_type + ' -- ', instance.status, "\n"
+				print instance.id, ' -- ', instance.instance_type, ' -- ', instance.status, ' -- ', instance.ip_address,"\n"
 			end
 		}
+		print "--------------------------------------------------\n\n"
 	end
 
-	def create
+	# Start single instance
+	#
+	# $penlook server start <instance_id>
+	def start
+		@ec2
 	end
 
-	def get
+	# Stop single instance
+	#
+	# $penlook server stop <instance_id>
+	def stop
+		# TODO
+	end
+
+	# SSH to instance
+	#
+	# $penlook server ssh <instance_id>
+	def ssh
+		# TODO
+	end
+
+	def help
+		puts "Usage: penlook server instance <parameter> <instance_id>"
+   		puts "Parameters:"
+    	puts "   list    List all instance available (not require <instance_id>)"
+    	puts "   start   Start an instance"
+    	puts "   stop    Stop an instance"
+    	puts "   status  Status of instance"
+    	puts "   ssh     SSH to an instance"
+	end
 
 end
