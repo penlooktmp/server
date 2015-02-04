@@ -33,13 +33,13 @@ class AwsEC2
 
 	# List all instances
 	#
-	# $penlook server list
+	# $ penlook server list
 	def list(id = nil)
 
 		print "----------------- LIST INSTANCES -----------------\n"
 		@ec2.instances.inject({}) { |m, instance|
 			if instance.status then
-				print instance.id, ' -- ', instance.instance_type, ' -- ', instance.status, ' -- ', instance.ip_address, "\n"
+				print '| ', instance.id, ' | ', instance.instance_type, ' | ', instance.status, ' | ', instance.ip_address, "\n"
 			end
 		}
 		print "--------------------------------------------------\n\n"
@@ -48,21 +48,23 @@ class AwsEC2
 
 	# Start single instance
 	#
-	# $penlook server start <instance_id>
+	# $ penlook server start <instance_id>
 	def start(id)
+		require(id)
 		puts "Start instance : #{id}"
 	end
 
 	# Stop single instance
 	#
-	# $penlook server stop <instance_id>
+	# $ penlook server stop <instance_id>
 	def stop(id)
+		require(id)
 		puts "Stop instance : #{id}"
 	end
 
 	# SSH to instance
 	#
-	# $penlook server ssh <instance_id>
+	# $ penlook server ssh <instance_id>
 	def ssh(id)
 		require(id)
 		puts "SSH to instance : #{id}"
@@ -76,6 +78,7 @@ class AwsEC2
 		end
 	end
 
+	# Reqire ID for single instance
 	def require(id)
 		if defined?(id) && (id != '')
 		then
@@ -85,6 +88,7 @@ class AwsEC2
 		end
 	end
 
+	# Help for instance
 	def help
 		puts "Usage: penlook server <parameter> <instance_id>"
    		puts "Parameters:"
