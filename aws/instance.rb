@@ -39,7 +39,7 @@ class AwsEC2
 		print "----------------- LIST INSTANCES -----------------\n"
 		@ec2.instances.inject({}) { |m, instance|
 			if instance.status then
-				print instance.id, ' -- ', instance.instance_type, ' -- ', instance.status, ' -- ', instance.ip_address,"\n"
+				print instance.id, ' -- ', instance.instance_type, ' -- ', instance.status, ' -- ', instance.ip_address, "\n"
 			end
 		}
 		print "--------------------------------------------------\n\n"
@@ -64,6 +64,7 @@ class AwsEC2
 	#
 	# $penlook server ssh <instance_id>
 	def ssh(id)
+		require(id)
 		puts "SSH to instance : #{id}"
 		instance = @ec2.instances[id]
 		ip = instance.ip_address
@@ -72,6 +73,15 @@ class AwsEC2
 			system('ssh -i ' + pem + ' ec2-user@' + ip)
 		else
 			puts "Instance #{id} is not ready !"
+		end
+	end
+
+	def require(id)
+		if defined?(id) && (id != '') 
+		then
+		else
+			help
+			exit(true)
 		end
 	end
 
