@@ -17,7 +17,9 @@ ec2 = AWS::EC2.new(
 )
 
 print ec2.instances.inject({}) { |m, instance|
-	print instance.id + ' -- ' + instance.instance_type + "\n"
+	if instance.status then
+		print instance.id + ' -- ' + instance.instance_type + ' -- ', instance.status, "\n"
+	end
 }
 
 

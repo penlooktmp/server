@@ -1,6 +1,5 @@
 require 'redis'
 require 'json'
-#require 'aws-sdk'
 
 class PenlookConfig
 
