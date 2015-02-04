@@ -1,2 +1,1 @@
-# server
-Penlook Server
+# Penlook Server

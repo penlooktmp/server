@@ -2,6 +2,10 @@
 require 'aws-sdk-v1'
 require './config'
 
+ARGV.each do|a|
+  puts "Argument: #{a}"
+end
+
 config = PenlookConfig.new
 aws = config.get('aws.yml')
 key = aws['access_key']
