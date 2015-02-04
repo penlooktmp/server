@@ -77,7 +77,7 @@ class AwsEC2
 	end
 
 	def require(id)
-		if defined?(id) && (id != '') 
+		if defined?(id) && (id != '')
 		then
 		else
 			help
