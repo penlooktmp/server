@@ -86,7 +86,7 @@ class AwsEC2
 	end
 
 	def help
-		puts "Usage: penlook server instance <parameter> <instance_id>"
+		puts "Usage: penlook server <parameter> <instance_id>"
    		puts "Parameters:"
     	puts "   list    List all instance available (not require <instance_id>)"
     	puts "   start   Start an instance"
