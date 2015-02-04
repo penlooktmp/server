@@ -15,8 +15,8 @@ end
 def help
 	puts "Usage: penlook server <option> <parameter>"
    	puts "Options:"
-    puts "   instance  Server authentication"
-    puts "   storage   Initialize project"
+    puts "   instance  EC2 instances"
+    puts "   storage   S3 storages"
 end
 
 modules = Hash[

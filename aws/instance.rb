@@ -4,13 +4,14 @@
 # Author : Loi Nguyen <loint@penlook.com>
 
 require './aws/config'
+require 'net/ssh'
 
 class AwsEC2
 
 	# Amazon EC2 Initialize
 	def initialize
-		config = AwsConfig.new
-		@aws = config.get('aws.yml')['access_key']
+		@config = AwsConfig.new
+		@aws = @config.get('aws.yml')['access_key']
 		@ec2 = AWS::EC2.new(
 			region: 'us-west-2',
 			access_key_id: @aws['key_id'],
@@ -20,13 +21,21 @@ class AwsEC2
 
 	# Command-line Interface
 	def cmd(args)
-		print args
+
+		if respond_to?(args[0])
+		then
+			eval("#{args[0]}(\"#{args[1]}\")")
+		else
+			help
+		end
+
 	end
 
 	# List all instances
 	#
 	# $penlook server list
-	def list
+	def list(id = nil)
+
 		print "----------------- LIST INSTANCES -----------------\n"
 		@ec2.instances.inject({}) { |m, instance|
 			if instance.status then
@@ -34,27 +43,36 @@ class AwsEC2
 			end
 		}
 		print "--------------------------------------------------\n\n"
+
 	end
 
 	# Start single instance
 	#
 	# $penlook server start <instance_id>
-	def start
-		@ec2
+	def start(id)
+		puts "Start instance : #{id}"
 	end
 
 	# Stop single instance
 	#
 	# $penlook server stop <instance_id>
-	def stop
-		# TODO
+	def stop(id)
+		puts "Stop instance : #{id}"
 	end
 
 	# SSH to instance
 	#
 	# $penlook server ssh <instance_id>
-	def ssh
-		# TODO
+	def ssh(id)
+		puts "SSH to instance : #{id}"
+		instance = @ec2.instances[id]
+		ip = instance.ip_address
+		if ip then
+			pem = @config.key('aws.pem')
+			system('ssh -i ' + pem + ' ec2-user@' + ip)
+		else
+			puts "Instance #{id} is not ready !"
+		end
 	end
 
 	def help

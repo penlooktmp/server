@@ -17,6 +17,10 @@ class AwsConfig
 		return JSON.parse(config)
 	end
 
+	def key(name)
+		return @redis.get(name)
+	end
+
 	def cmd
 		help
 	end
