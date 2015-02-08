@@ -22,3 +22,37 @@
 # |   Author:                                                                |
 # |         Loi Nguyen <loint@penlook.com>                                   |
 # +--------------------------------------------------------------------------+
+
+require "test/unit"
+require_relative "./instance.rb"
+
+class TestAwsInstance < Test::Unit::TestCase
+
+	def setup
+		# Setup
+		@instance = AwsInstance.new
+	end
+
+	def teardown
+		# Teardown
+	end
+
+	def test_instance_list
+		mockup
+		list = @instance.list
+		assert_equal(list.length, 3)
+	end
+
+	def test_instance_start
+
+	end
+
+	def test_instance_stop
+
+	end
+
+	def test_instance_ssh
+
+	end
+
+end

@@ -20,8 +20,8 @@ def help
 end
 
 modules = Hash[
-	"instance" => "AwsEC2",
-	"storage"  => "AwsS3"
+	"instance" => "AwsInstance",
+	"storage"  => "AwsStorage"
 ]
 
 if args[0]

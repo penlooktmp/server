@@ -23,20 +23,32 @@
 # |         Loi Nguyen <loint@penlook.com>                                   |
 # +--------------------------------------------------------------------------+
 
-require './aws/config'
-require 'net/ssh'
+require 'aws-sdk-v1'
+require 'json'
+require_relative './config.rb'
 
-class AwsEC2
+class AwsInstance
 
 	# Amazon EC2 Initialize
 	def initialize
+
 		@config = AwsConfig.new
-		@aws = @config.get('aws.yml')['access_key']
+		aws_file = @config.get('aws.yml')
+
+		if aws_file == nil
+			puts "Please use penlook config to initialize configuration."
+			exit 1
+		end
+
+		cred_data = JSON.parse(aws_file)
+		@aws = cred_data['access_key']
 		@ec2 = AWS::EC2.new(
 			region: 'us-west-2',
 			access_key_id: @aws['key_id'],
   			secret_access_key: @aws['key_secret']
 		)
+
+		return self
 	end
 
 	# Command-line Interface
@@ -57,13 +69,17 @@ class AwsEC2
 	def list(id = nil)
 
 		print "----------------- LIST INSTANCES -----------------\n"
+		list_instance = Array.new
+
 		@ec2.instances.inject({}) { |m, instance|
+			list_instance.push(instance)
 			if instance.status then
 				print '| ', instance.id, ' | ', instance.instance_type, ' | ', instance.status, ' | ', instance.ip_address, "\n"
 			end
 		}
 		print "--------------------------------------------------\n\n"
 
+		return list_instance
 	end
 
 	# Start single instance
@@ -91,7 +107,7 @@ class AwsEC2
 		instance = @ec2.instances[id]
 		ip = instance.ip_address
 		if ip then
-			pem = @config.key('aws.pem')
+			pem = @config.file('aws.pem')
 			system('ssh -i ' + pem + ' ec2-user@' + ip)
 		else
 			puts "Instance #{id} is not ready !"

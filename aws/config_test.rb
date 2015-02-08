@@ -24,10 +24,26 @@
 # +--------------------------------------------------------------------------+
 
 require "test/unit"
+require_relative "./config.rb"
 
-class TestSimpleNumber < Test::Unit::TestCase
-	def test_simple
-    	assert_equal(4, 4)
-    	assert_equal( "hello", "hello" )
+class TestAwsConfig < Test::Unit::TestCase
+
+	def setup
+		# Setup
+		@config = AwsConfig.new
+	end
+
+	def teardown
+		# Teardown
+	end
+
+	def test_config_set_get
+		@config.set('abc', '12345')
+    	assert_equal(@config.get('abc'), '12345')
   	end
+
+  	def test_config_set_file
+  		# TODO
+  	end
+
 end

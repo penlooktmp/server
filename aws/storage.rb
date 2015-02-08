@@ -25,7 +25,7 @@
 
 require './aws/config'
 
-class AwsS3
+class AwsStorage
 
 	def initialize
 		config = AwsConfig.new

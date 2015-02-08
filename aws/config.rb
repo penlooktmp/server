@@ -32,13 +32,18 @@ class AwsConfig
 		@redis = Redis.new
 	end
 
-	def get(name)
-		config = @redis.get("aws.yml")
-		return JSON.parse(config)
+	def set(key, value)
+		@redis.set(key, value)
+		return self
 	end
 
-	def key(name)
-		return @redis.get(name)
+	def get(key)
+		return @redis.get(key)
+	end
+
+	def file(file_name)
+		config = @redis.get(file_name)
+		return JSON.parse(config)
 	end
 
 	def cmd
