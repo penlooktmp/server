@@ -19,7 +19,7 @@
 # | along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
 # |                                                                          |
 # +--------------------------------------------------------------------------+
-# |   Authors: Loi Nguyen  <loint@penlook.com>                               |
+# |   Author: Loi Nguyen  <loint@penlook.com>                                |
 # +--------------------------------------------------------------------------+
 
 source 'https://rubygems.org'
