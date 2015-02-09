@@ -19,8 +19,7 @@
 # | along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
 # |                                                                          |
 # +--------------------------------------------------------------------------+
-# |   Author:                                                                |
-# |         Loi Nguyen <loint@penlook.com>                                   |
+# |   Authors: Loi Nguyen  <loint@penlook.com>                               |
 # +--------------------------------------------------------------------------+
 
 require "test/unit"
